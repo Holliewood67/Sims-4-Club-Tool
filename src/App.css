@@ -1,38 +1,41 @@
-.App {
+/* COLOR PALLETTE QUICK REF */
+/* --baby-powder: #fffffaff;
+  --dark-pastel-green: #0cca4aff;
+  --maximum-blue: #4fb0c6ff;
+  --carolina-blue: #4f9bc6ff;
+  --bleu-de-france: #4f86c6ff; */
+  /* body {
+    background: rgb(79,155,198);
+    background: linear-gradient(164deg, rgba(79,155,198,1) 0%, rgba(79,134,198,1) 35%, rgba(79,176,198,1) 90%, rgba(12,202,74,1) 100%);
+    } */
+
+body {
+  background: rgb(34,193,195);
+  background: linear-gradient(144deg, rgba(34,193,195,1) 0%, rgba(253,187,45,1) 100%);
+}
+
+.navigationBar {
+  background: rgb(14,193,190);
+background: linear-gradient(159deg, rgba(14,193,190,1) 23%, rgba(94,234,3,1) 100%);
+}
+
+.form-area {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.aligned-to-center {
+  text-align: center;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.no-background {
+  background: rgb(0, 0, 0, 0%);
+  border: none;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.blackText {
+  color: black;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.widen {
+  width: 100%;  
 }
