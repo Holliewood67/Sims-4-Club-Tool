@@ -390,7 +390,7 @@ export default class CreateClub extends Component {
 
         console.log(ClubObject);
 
-        axios.post('http://localhost:4000/Clubs/create', ClubObject)
+        axios.post('http://192.168.0.141:4000/Clubs/create', ClubObject)
             .then((res) => {
                 console.log(res.data)
             }).catch((error) => {

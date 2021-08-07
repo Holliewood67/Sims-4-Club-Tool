@@ -1,4 +1,6 @@
 const mongoose = require ('mongoose');
+const mongodb = require('mongodb');
+
 const express = require ('express');
 const router = express.Router();
 
@@ -13,6 +15,13 @@ router.route('/create').post((req, res, next) => {
             res.json(data);
         }
     })
+});
+
+//Remove Club Router
+router.get('/removeClub/:id', (req, res, next) => {
+    club.deleteOne({_id: mongodb.ObjectID(req.params.id)}, (err, result) => {
+        if (err) return console.log(err)
+      })
 });
 
 router.route('/').get((req, res, next) => {
