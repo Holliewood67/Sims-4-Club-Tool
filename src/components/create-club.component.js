@@ -5,6 +5,7 @@ import axios from 'axios';
 import ClubRequirements from './club-requirements.component';
 import ClubActivities from './club-activities.component';
 import { Container, Col, Row, Form, Button, InputGroup } from 'react-bootstrap';
+import { withRouter } from "react-router-dom"
 
 const requirementList = require('./requirements.js');
 const activityList = require('./activities.js');
@@ -390,10 +391,10 @@ export default class CreateClub extends Component {
 
         console.log(ClubObject);
 
-        axios.post('http://192.168.0.141:4000/Clubs/create', ClubObject)
+        axios.post('http://localhost:4000/Clubs/create', ClubObject)
             .then((res) => {
                 console.log(res.data)
-            }).catch((error) => {
+            }).then(this.props.history.push('/clubs')).catch((error) => {
                 console.log(error)
             });
 
@@ -407,10 +408,6 @@ export default class CreateClub extends Component {
             <div className="wrapper">
                 <Container>
                     <Form className="form-area m-auto p-3 text-white"  onSubmit={this.onSubmit}>
-                        {/* <Form.Group className="form-group">
-                            <Form.Label>Add Club Name</Form.Label>
-                            <Form.Control required type="text" placeholder="Enter club name" name="clubName" value={this.state.clubName} onChange={this.onChangeTextInput} className="form-control" />
-                        </Form.Group> */}
                         <Row>
                             <InputGroup className="my-1" hasValidation>
                                 <Col><InputGroup.Text>Name</InputGroup.Text></Col>

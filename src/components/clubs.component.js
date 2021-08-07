@@ -10,7 +10,7 @@ export default class Clubs extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://192.168.0.141:4000/clubs')
+        axios.get('http://localhost:4000/clubs')
             .then(res => {
                 this.setState({ clubCollection: res.data });
             }).catch(function (error) {

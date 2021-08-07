@@ -82,7 +82,7 @@ class DataTable extends Component {
                                         </Row>
                                     </Container>
                                 </Col>: null}
-                                <Button onClick={() => {axios.get(`http://localhost:4000/Clubs/removeClub/${this.props.obj._id}`)}}>Remove Club</Button>
+                                <Button onClick={() => {axios.get(`http://localhost:4000/Clubs/removeClub/${this.props.obj._id}`).then(window.location.reload())}}>Remove Club</Button>
                                     </div>
                                 </Accordion.Body>
                             </Accordion.Item>
