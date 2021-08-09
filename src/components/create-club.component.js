@@ -6,11 +6,13 @@ import ClubRequirements from './club-requirements.component';
 import ClubActivities from './club-activities.component';
 import { Container, Col, Row, Form, Button, InputGroup } from 'react-bootstrap';
 import { withRouter } from "react-router-dom"
+import env from "react-dotenv";
+
 
 const requirementList = require('./requirements.js');
 const activityList = require('./activities.js');
 
-export default class CreateClub extends Component {
+export default withRouter( class  CreateClub extends Component {
 
     constructor(props) {
         super(props)
@@ -179,6 +181,7 @@ export default class CreateClub extends Component {
             case 0:
                 this.setState({
                     showRequirementOne: false,
+                    clubRequirementOne: ''
                 });
                 break;
             case 1:
@@ -187,6 +190,7 @@ export default class CreateClub extends Component {
                     clubRequirementOne: defaultValue.value,
                     showRequirementOne: true,
                     showRequirementTwo: false,
+                    clubRequirementTwo: ''
                 });
                 break;
             case 2:
@@ -195,6 +199,7 @@ export default class CreateClub extends Component {
                     clubRequirementTwo: defaultValue.value,
                     showRequirementTwo: true,
                     showRequirementThree: false,
+                    clubRequirementThree: ''
                 });
                 break;
             case 3:
@@ -203,6 +208,7 @@ export default class CreateClub extends Component {
                     clubRequirementThree: defaultValue.value,
                     showRequirementThree: true,
                     showRequirementFour: false,
+                    clubRequirementFour: ''
                 });
                 break;
             case 4:
@@ -211,6 +217,7 @@ export default class CreateClub extends Component {
                     clubRequirementFour: defaultValue.value,
                     showRequirementFour: true,
                     showRequirementFive: false,
+                    clubRequirementFive: ''
                 });
                 break;
             case 5:
@@ -239,6 +246,7 @@ export default class CreateClub extends Component {
             case 0:
                 this.setState({
                     showEncouragedActivityOne: false,
+                    clubEncouragedActivityOne: ''
                 });
                 break;
             case 1:
@@ -247,8 +255,8 @@ export default class CreateClub extends Component {
                     clubEncouragedActivityOne: defaultValue.value,
                     showEncouragedActivityOne: true,
                     showEncouragedActivityTwo: false,
+                    clubEncouragedActivityTwo: ''
                 });
-                console.log(`Activity one changed to ${this.state.clubEncouragedActivityOneDefault}`)
                 break;
             case 2:
                 this.setState({
@@ -256,6 +264,7 @@ export default class CreateClub extends Component {
                     clubEncouragedActivityTwo: defaultValue.value,
                     showEncouragedActivityTwo: true,
                     showEncouragedActivityThree: false,
+                    clubEncouragedActivityThree: ''
                 });
                 break;
             case 3:
@@ -264,6 +273,7 @@ export default class CreateClub extends Component {
                     clubEncouragedActivityThree: defaultValue.value,
                     showEncouragedActivityThree: true,
                     showEncouragedActivityFour: false,
+                    clubEncouragedActivityFour: ''
                 });
                 break;
             case 4:
@@ -272,6 +282,7 @@ export default class CreateClub extends Component {
                     clubEncouragedActivityFour: defaultValue.value,
                     showEncouragedActivityFour: true,
                     showEncouragedActivityFive: false,
+                    clubEncouragedActivityFive: ''
                 });
                 break;
             case 5:
@@ -299,7 +310,8 @@ export default class CreateClub extends Component {
         switch(discouragedActivityIndex){
             case 0:
                 this.setState({
-                    showDiscouragedActivityOne: false
+                    showDiscouragedActivityOne: false,
+                    clubDiscouragedActivityOne: ''
                 });
                 break;
             case 1:
@@ -307,7 +319,8 @@ export default class CreateClub extends Component {
                     clubDiscouragedActivityOneDefault: defaultValue,
                     clubDiscouragedActivityOne: defaultValue.value,
                     showDiscouragedActivityOne: true,
-                    showDiscouragedActivityTwo: false
+                    showDiscouragedActivityTwo: false,
+                    clubDiscouragedActivityTwo: ''
                 });
                 break;
             case 2:
@@ -315,7 +328,8 @@ export default class CreateClub extends Component {
                     clubDiscouragedActivityTwoDefault: defaultValue,
                     clubDiscouragedActivityTwo: defaultValue.value,
                     showDiscouragedActivityTwo: true,
-                    showDiscouragedActivityThree: false
+                    showDiscouragedActivityThree: false,
+                    clubDiscouragedActivityThree: ''
                 });
                 break;
             case 3:
@@ -323,7 +337,8 @@ export default class CreateClub extends Component {
                     clubDiscouragedActivityThreeDefault: defaultValue,
                     clubDiscouragedActivityThree: defaultValue.value,
                     showDiscouragedActivityThree: true,
-                    showDiscouragedActivityFour: false
+                    showDiscouragedActivityFour: false,
+                    clubDiscouragedActivityFour: ''
                 });
                 break;
             case 4:
@@ -331,7 +346,8 @@ export default class CreateClub extends Component {
                     clubDiscouragedActivityFourDefault: defaultValue,
                     clubDiscouragedActivityFour: defaultValue.value,
                     showDiscouragedActivityFour: true,
-                    showDiscouragedActivityFive: false
+                    showDiscouragedActivityFive: false,
+                    clubDiscouragedActivityFive: ''
                 });
                 break;
             case 5:
@@ -391,16 +407,51 @@ export default class CreateClub extends Component {
 
         console.log(ClubObject);
 
-        axios.post('http://localhost:4000/Clubs/create', ClubObject)
+        axios.post(`http://${env.REACT_APP_DB_IP}:4000/Clubs/create`, ClubObject)
             .then((res) => {
                 console.log(res.data)
-            }).then(this.props.history.push('/clubs')).catch((error) => {
+            }).then(this.props.history.push('/clubs')).then(window.location.reload()).catch((error) => {
                 console.log(error)
             });
 
         this.setState({ 
-            clubName: '', 
-            clubDescription: ''})
+            clubName: '',
+            clubDescription: '',
+            submitButtonDisabled: true,
+            numOfRequirements: 0,
+            numOfEncouragedActivities: 0,
+            numOfDiscouragedActivities: 0,
+            clubRequirementOne: '',
+            clubRequirementTwo: '',
+            clubRequirementThree: '',
+            clubRequirementFour: '',
+            clubRequirementFive: '',
+            clubEncouragedActivityOne: '',
+            clubEncouragedActivityTwo: '',
+            clubEncouragedActivityThree: '',
+            clubEncouragedActivityFour: '',
+            clubEncouragedActivityFive: '',
+            clubDiscouragedActivityOne: '',
+            clubDiscouragedActivityTwo: '',
+            clubDiscouragedActivityThree: '',
+            clubDiscouragedActivityFour: '',
+            clubDiscouragedActivityFive: '',
+            showRequirementOne: false,
+            showRequirementTwo: false,
+            showRequirementThree: false,
+            showRequirementFour: false,
+            showRequirementFive: false,
+            showEncouragedActivityOne: false,
+            showEncouragedActivityTwo: false,
+            showEncouragedActivityThree: false,
+            showEncouragedActivityFour: false,
+            showEncouragedActivityFive: false,
+            showDiscouragedActivityOne: false,
+            showDiscouragedActivityTwo: false,
+            showDiscouragedActivityThree: false,
+            showDiscouragedActivityFour: false,
+            showDiscouragedActivityFive: false
+        })
     }
 
     render() {
@@ -409,83 +460,97 @@ export default class CreateClub extends Component {
                 <Container>
                     <Form className="form-area m-auto p-3 text-white"  onSubmit={this.onSubmit}>
                         <Row>
-                            <InputGroup className="my-1" hasValidation>
-                                <Col><InputGroup.Text>Name</InputGroup.Text></Col>
-                                <Col><Form.Control required  type="text" placeholder="Enter club name" name="clubName" value={this.state.clubName} onChange={this.onChangeTextInput} className="form-control" /></Col>
+                            <InputGroup className="my-3" hasValidation>
+                                <Col><InputGroup.Text className="thicker-border">Name</InputGroup.Text></Col>
+                                <Col><Form.Control required  type="text" placeholder="Enter club name" name="clubName" value={this.state.clubName} onChange={this.onChangeTextInput} className="form-control thicker-border" /></Col>
                             </InputGroup>
                         </Row>
                         <Row>
-                            <InputGroup className="my-1" hasValidation>
-                            <Col><InputGroup.Text>Description</InputGroup.Text></Col>
-                            <Col><Form.Control required type="text" placeholder="Enter club description" name="clubDescription" value={this.state.clubDescription} onChange={this.onChangeTextInput} className="form-control" /></Col>
+                            <InputGroup className="my-3" hasValidation>
+                            <Col><InputGroup.Text className="thicker-border">Description</InputGroup.Text></Col>
+                            <Col><Form.Control required type="text" placeholder="Enter club description" name="clubDescription" value={this.state.clubDescription} onChange={this.onChangeTextInput} className="form-control thicker-border" /></Col>
                             </InputGroup>
                         </Row>
-                        <h2>Requirements</h2>
-                        <Form.Group>
-                            { 
-                            this.state.showRequirementOne?<ClubRequirements name="clubRequirementOne" defaultValue={this.state.clubRequirementOneDefault} value={this.state.clubRequirementOne} onChangeInput={this.onChangeInput} className="form-control"/>: null
-                            }
-                            { 
-                            this.state.showRequirementTwo?<ClubRequirements name="clubRequirementTwo" defaultValue={this.state.clubRequirementTwoDefault} value={this.state.clubRequirementTwo} onChangeInput={this.onChangeInput} className="form-control"/>: null
-                            }
-                            { 
-                            this.state.showRequirementThree?<ClubRequirements name="clubRequirementThree" defaultValue={this.state.clubRequirementThreeDefault} value={this.state.clubRequirementThree} onChangeInput={this.onChangeInput} className="form-control"/>: null
-                            }
-                            { 
-                            this.state.showRequirementFour?<ClubRequirements name="clubRequirementFour" defaultValue={this.state.clubRequirementFourDefault} value={this.state.clubRequirementFour} onChangeInput={this.onChangeInput} className="form-control"/>: null
-                            }
-                            { 
-                            this.state.showRequirementFive?<ClubRequirements name="clubRequirementFive" defaultValue={this.state.clubRequirementFiveDefault} value={this.state.clubRequirementFive} onChangeInput={this.onChangeInput} className="form-control"/>: null
-                            }
-                            <Button className="py-1 px-4 mx-3" size="lg" onClick={this.addRequirement}>+</Button>
-                            <Button className="py-1 px-4 mx-3" size="lg" variant="danger" onClick={this.removeRequirement}>-</Button>
-                        </Form.Group>
-                        <h2>Encouraged Activities</h2>
-                        <Form.Group>
-                            {
-                            this.state.showEncouragedActivityOne?<ClubActivities name="clubEncouragedActivityOne" defaultValue={this.state.clubEncouragedActivityOneDefault} value={this.state.clubEncouragedActivityOne}  onChangeInput={this.onChangeInput} className="form-control"/>: null
-                            }
-                            {
-                            this.state.showEncouragedActivityTwo?<ClubActivities name="clubEncouragedActivityTwo" defaultValue={this.state.clubEncouragedActivityTwoDefault} value={this.state.clubEncouragedActivityTwo} onChangeInput={this.onChangeInput} className="form-control"/>: null
-                            }
-                            {
-                            this.state.showEncouragedActivityThree?<ClubActivities name="clubEncouragedActivityThree" defaultValue={this.state.clubEncouragedActivityThreeDefault} value={this.state.clubEncouragedActivityThreet} onChangeInput={this.onChangeInput} className="form-control"/>: null
-                            }
-                            {
-                            this.state.showEncouragedActivityFour?<ClubActivities name="clubEncouragedActivityFour" defaultValue={this.state.clubEncouragedActivityFourDefault} value={this.state.clubEncouragedActivityFour} onChangeInput={this.onChangeInput} className="form-control"/>: null
-                            }
-                            {
-                            this.state.showEncouragedActivityFive?<ClubActivities name="clubEncouragedActivityFive" defaultValue={this.state.clubEncouragedActivityFiveDefault} value={this.state.clubEncouragedActivityFive} onChangeInput={this.onChangeInput} className="form-control"/>: null
-                            }
-                            <Button className="py-1 px-4 mx-3" size="lg" onClick={this.addEncouragedActivity}>+</Button>
-                            <Button className="py-1 px-4 mx-3" size="lg" variant="danger" onClick={this.removeEncouragedActivity}>-</Button>
-                        </Form.Group>
-                        <h2>Discouraged Activities</h2>
-                        <Form.Group>
-                            {
-                            this.state.showDiscouragedActivityOne?<ClubActivities name="clubDiscouragedActivityOne" defaultValue={this.state.clubDiscouragedActivityOneDefault} value={this.state.clubDiscouragedActivityOne} onChangeInput={this.onChangeInput} className="form-control"/>: null
-                            }
-                            {
-                            this.state.showDiscouragedActivityTwo?<ClubActivities name="clubDiscouragedActivityTwo" defaultValue={this.state.clubDiscouragedActivityTwoDefault} value={this.state.clubDiscouragedActivityTwo} onChangeInput={this.onChangeInput} className="form-control"/>: null
-                            }
-                            {
-                            this.state.showDiscouragedActivityThree?<ClubActivities name="clubDiscouragedActivityThree" defaultValue={this.state.clubDiscouragedActivityThreeDefault} value={this.state.clubDiscouragedActivityThree} onChangeInput={this.onChangeInput} className="form-control"/>: null
-                            }
-                            {
-                            this.state.showDiscouragedActivityFour?<ClubActivities name="clubDiscouragedActivityFour" defaultValue={this.state.clubDiscouragedActivityFourDefault} value={this.state.clubDiscouragedActivityFour} onChangeInput={this.onChangeInput} className="form-control"/>: null
-                            }
-                            {
-                            this.state.showDiscouragedActivityFive?<ClubActivities name="clubDiscouragedActivityFive" defaultValue={this.state.clubDiscouragedActivityFiveDefault} value={this.state.clubDiscouragedActivityFive} onChangeInput={this.onChangeInput} className="form-control"/>: null
-                            }
-                            <Button className="py-1 px-4 mx-3" size="lg" onClick={this.addDiscouragedActivity}>+</Button>
-                            <Button className="py-1 px-4 mx-3" size="lg" variant="danger" onClick={this.removeDiscouragedActivity}>-</Button>
-                        </Form.Group>
-                        <Form.Group className="form-group d-grid gap-2 my-4">
-                                <Button disabled={this.state.submitButtonDisabled} size="lg" value="Create Club" className="btn btn-success btn-block" onClick={this.onSubmit}>Create Club</Button>
-                        </Form.Group>
+                        <Row className="my-3">
+                            <h1>Requirements</h1>
+                        </Row>
+                        <Row className="my-3">
+                            <Form.Group>
+                                { 
+                                this.state.showRequirementOne?<ClubRequirements name="clubRequirementOne" defaultValue={this.state.clubRequirementOneDefault} value={this.state.clubRequirementOne} onChangeInput={this.onChangeInput} className="form-control"/>: null
+                                }
+                                { 
+                                this.state.showRequirementTwo?<ClubRequirements name="clubRequirementTwo" defaultValue={this.state.clubRequirementTwoDefault} value={this.state.clubRequirementTwo} onChangeInput={this.onChangeInput} className="form-control"/>: null
+                                }
+                                { 
+                                this.state.showRequirementThree?<ClubRequirements name="clubRequirementThree" defaultValue={this.state.clubRequirementThreeDefault} value={this.state.clubRequirementThree} onChangeInput={this.onChangeInput} className="form-control"/>: null
+                                }
+                                { 
+                                this.state.showRequirementFour?<ClubRequirements name="clubRequirementFour" defaultValue={this.state.clubRequirementFourDefault} value={this.state.clubRequirementFour} onChangeInput={this.onChangeInput} className="form-control"/>: null
+                                }
+                                { 
+                                this.state.showRequirementFive?<ClubRequirements name="clubRequirementFive" defaultValue={this.state.clubRequirementFiveDefault} value={this.state.clubRequirementFive} onChangeInput={this.onChangeInput} className="form-control"/>: null
+                                }
+                                <Button className="py-1 px-4 mx-3 add-button thicker-border" size="lg" onClick={this.addRequirement}>+</Button>
+                                <Button className="py-1 px-4 mx-3 remove-button thicker-border" size="lg" variant="danger" onClick={this.removeRequirement}>-</Button>
+                            </Form.Group>
+                        </Row>
+                        <Row className="my-3">
+                            <h1>Encouraged Activities</h1>
+                        </Row>
+                        <Row className="my-3">
+                            <Form.Group>
+                                {
+                                this.state.showEncouragedActivityOne?<ClubActivities name="clubEncouragedActivityOne" defaultValue={this.state.clubEncouragedActivityOneDefault} value={this.state.clubEncouragedActivityOne}  onChangeInput={this.onChangeInput} className="form-control"/>: null
+                                }
+                                {
+                                this.state.showEncouragedActivityTwo?<ClubActivities name="clubEncouragedActivityTwo" defaultValue={this.state.clubEncouragedActivityTwoDefault} value={this.state.clubEncouragedActivityTwo} onChangeInput={this.onChangeInput} className="form-control"/>: null
+                                }
+                                {
+                                this.state.showEncouragedActivityThree?<ClubActivities name="clubEncouragedActivityThree" defaultValue={this.state.clubEncouragedActivityThreeDefault} value={this.state.clubEncouragedActivityThreet} onChangeInput={this.onChangeInput} className="form-control"/>: null
+                                }
+                                {
+                                this.state.showEncouragedActivityFour?<ClubActivities name="clubEncouragedActivityFour" defaultValue={this.state.clubEncouragedActivityFourDefault} value={this.state.clubEncouragedActivityFour} onChangeInput={this.onChangeInput} className="form-control"/>: null
+                                }
+                                {
+                                this.state.showEncouragedActivityFive?<ClubActivities name="clubEncouragedActivityFive" defaultValue={this.state.clubEncouragedActivityFiveDefault} value={this.state.clubEncouragedActivityFive} onChangeInput={this.onChangeInput} className="form-control"/>: null
+                                }
+                                <Button className="py-1 px-4 mx-3 add-button thicker-border" size="lg" onClick={this.addEncouragedActivity}>+</Button>
+                                <Button className="py-1 px-4 mx-3 remove-button thicker-border" size="lg" variant="danger" onClick={this.removeEncouragedActivity}>-</Button>
+                            </Form.Group>
+                        </Row>
+                        <Row className="my-3">
+                            <h2>Discouraged Activities</h2>
+                        </Row>
+                        <Row className="my-3">
+                            <Form.Group>
+                                {
+                                this.state.showDiscouragedActivityOne?<ClubActivities name="clubDiscouragedActivityOne" defaultValue={this.state.clubDiscouragedActivityOneDefault} value={this.state.clubDiscouragedActivityOne} onChangeInput={this.onChangeInput} className="form-control"/>: null
+                                }
+                                {
+                                this.state.showDiscouragedActivityTwo?<ClubActivities name="clubDiscouragedActivityTwo" defaultValue={this.state.clubDiscouragedActivityTwoDefault} value={this.state.clubDiscouragedActivityTwo} onChangeInput={this.onChangeInput} className="form-control"/>: null
+                                }
+                                {
+                                this.state.showDiscouragedActivityThree?<ClubActivities name="clubDiscouragedActivityThree" defaultValue={this.state.clubDiscouragedActivityThreeDefault} value={this.state.clubDiscouragedActivityThree} onChangeInput={this.onChangeInput} className="form-control"/>: null
+                                }
+                                {
+                                this.state.showDiscouragedActivityFour?<ClubActivities name="clubDiscouragedActivityFour" defaultValue={this.state.clubDiscouragedActivityFourDefault} value={this.state.clubDiscouragedActivityFour} onChangeInput={this.onChangeInput} className="form-control"/>: null
+                                }
+                                {
+                                this.state.showDiscouragedActivityFive?<ClubActivities name="clubDiscouragedActivityFive" defaultValue={this.state.clubDiscouragedActivityFiveDefault} value={this.state.clubDiscouragedActivityFive} onChangeInput={this.onChangeInput} className="form-control"/>: null
+                                }
+                                <Button className="py-1 px-4 mx-3 add-button thicker-border" size="lg" onClick={this.addDiscouragedActivity}>+</Button>
+                                <Button className="py-1 px-4 mx-3 remove-button thicker-border" size="lg" variant="danger" onClick={this.removeDiscouragedActivity}>-</Button>
+                            </Form.Group>
+                        </Row>
+                        <Row className="my-3">
+                            <Form.Group className="form-group d-grid gap-2 my-4 ">
+                                    <Button disabled={this.state.submitButtonDisabled} size="lg" value="Create Club" className="submit-button thicker-border" onClick={this.onSubmit}>Create Club</Button>
+                            </Form.Group>
+                        </Row>
                     </Form>    
                 </Container>
             </div>
         )
     }
-}
+})

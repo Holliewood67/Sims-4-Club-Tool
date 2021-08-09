@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import DataTable from './data-table';
 import { Container } from 'react-bootstrap';
+import env from "react-dotenv";
 
 export default class Clubs extends Component {
     constructor(props) {
@@ -10,7 +11,7 @@ export default class Clubs extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://localhost:4000/clubs')
+        axios.get(`http://${env.REACT_APP_DB_IP}:4000/clubs`)
             .then(res => {
                 this.setState({ clubCollection: res.data });
             }).catch(function (error) {

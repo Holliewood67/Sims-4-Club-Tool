@@ -8,7 +8,6 @@ let database = require('./database/db');
 const userRoute = require('../server/routes/user.routes');
 const clubRoute = require('../server/routes/club.routes');
 
-
 mongoose.Promise = global.Promise;
 mongoose.connect(database.db, {
     useNewUrlParser: true

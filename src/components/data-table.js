@@ -27,9 +27,17 @@ class DataTable extends Component {
                 <Container className="aligned-to-center" fluid>
                     <Row>
                         <Accordion>
-                            <Accordion.Item eventKey="0">
+                            <Accordion.Item className="thicker-border" eventKey="0">
                                 <Accordion.Header className="aligned-to-center">
-                                    <Card.Title>{this.props.obj.clubName}</Card.Title>
+                                    <Container>
+                                        <Row>
+                                            <Card.Title>{this.props.obj.clubName}</Card.Title>
+                                            </Row>
+                                        <Row>
+                                            {this.props.obj.clubAuthor?<Card.Text className="italics">By {this.props.obj.clubAuthor}</Card.Text>:
+                                            <Card.Text className="italics">By Anonymous</Card.Text>}
+                                        </Row>
+                                    </Container>
                                 </Accordion.Header>
                                 <Accordion.Body>
                                 <div>

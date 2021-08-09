@@ -16,7 +16,8 @@ body {
 
 .navigationBar {
   background: rgb(14,193,190);
-background: linear-gradient(159deg, rgba(14,193,190,1) 23%, rgba(94,234,3,1) 100%);
+  background: linear-gradient(159deg, rgba(14,193,190,1) 23%, rgba(94,234,3,1) 100%);
+  border-bottom: 2px solid black;
 }
 
 .form-area {
@@ -38,4 +39,31 @@ background: linear-gradient(159deg, rgba(14,193,190,1) 23%, rgba(94,234,3,1) 100
 
 .widen {
   width: 100%;  
+}
+
+.italics {
+  font-style: italic;
+}
+
+.add-button {
+  background: rgb(12,202,74);
+  background: linear-gradient(170deg, rgba(12,202,74,1) 64%, rgba(255,255,250,1) 100%);
+}
+
+.remove-button {
+  background: rgb(253,29,29);
+background: linear-gradient(170deg, rgba(184,92,52,1) 50%, rgba(255,255,250,1) 100%);
+}
+
+.thicker-border {
+  border: 2px solid black;
+}
+
+.submit-button {
+  background: rgb(12,202,74);
+  background: linear-gradient(170deg, rgba(12,202,74,1) 64%, rgba(34,193,195) 100%);
+}
+
+.btn-inactive {
+  border: 2px solid black;
 }

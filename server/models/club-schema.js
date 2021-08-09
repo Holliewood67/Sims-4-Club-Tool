@@ -8,6 +8,9 @@ let clubSchema = new Schema({
     clubDescription: {
         type: String
     },
+    clubAuthor: {
+        type: String
+    },
     clubRequirementOne: {
         type: String,
         default: 'None'
